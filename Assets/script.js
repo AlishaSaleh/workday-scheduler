@@ -1,6 +1,6 @@
 console.log(moment().format('MMMM Do YYYY, h:mm:ss a'));
 
-var tasksObj;
+// var tasksObj;
 
 
 $(document).ready(function () {
@@ -13,7 +13,7 @@ $(document).ready(function () {
 
     console.log(currentHour);
 
-    tasksObj = {
+    var tasksObj = {
         "9": "",
         "10": "",
         "11": "",
@@ -30,20 +30,14 @@ $(document).ready(function () {
 
     };
 
-    function retriveTasks() {
+    function retrieveTasks() {
         var loadTasks = JSON.parse(localStorage.getItem("tasksObj"));
         
             tasksObj = loadTasks;
        
-        console.log('retrievedObject: ', (loadTasks));
+        console.log("retrievedObject: ", (loadTasks));
 
-        // if (loadTasks) {
-        //     tasksObj = loadTasks;
-
-        //     $.each(tasksObj, function(){
-
-        //     });
-        // };
+       
 
     };
 
@@ -56,20 +50,17 @@ $(document).ready(function () {
             console.log("element hour", elementHour);
             console.log("current hour", currentHour);
             if (elementHour < currentHour) {
-                // $(this).removeClass(["present", "future"]).addClass("past");
                 $(this).addClass("past");
             }
             else if (elementHour === currentHour) {
-                // $(this).removeClass(["past", "future"]).addClass("present");
                 $(this).addClass("present");
             }
             else {
-                // $(this).removeClass(["past", "present"]).addClass("future");
                 $(this).addClass("future");
 
             };
         });
-        retriveTasks();
+        retrieveTasks();
     };
 
 
@@ -95,7 +86,5 @@ $(document).ready(function () {
     });
 
     styleTasks();
-
-    console.log(tasksObj);
    
 });
