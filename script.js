@@ -5,56 +5,56 @@ var tasksObj;
 
 $(document).ready(function () {
     var currentDay = $("#currentDay");
-    var schedCont = $(".container");
+    // var schedCont = $(".container");
 
-    currentDay.text(moment().format('MMMM Do YYYY, h:mm:ss a'));
+    currentDay.text(moment().format('dddd, MMMM Do YYYY'));
 
     var currentHour = parseInt(moment().format('H'));
 
     console.log(currentHour);
 
     tasksObj = {
-        "9" : "",
-        "10" : "",
-        "11" : "",
-        "12" : "",
-        "13" : "",
-        "14" : "",
-        "15" : "",
-        "16" : "",
-        "17" : ""
+        "9": "",
+        "10": "",
+        "11": "",
+        "12": "",
+        "13": "",
+        "14": "",
+        "15": "",
+        "16": "",
+        "17": ""
     };
 
-    function storeTasks () {
+    function storeTasks() {
         localStorage.setItem("tasksObj", JSON.stringify(tasksObj));
 
     };
 
-    function retriveTasks () {
-        var loadTasks = JSON.parse(localStorage.getItem("tasks"));
+    function retriveTasks() {
+        var loadTasks = JSON.parse(localStorage.getItem("tasksObj"));
+        
+            tasksObj = loadTasks;
+       
+        console.log('retrievedObject: ', (loadTasks));
+
         // if (loadTasks) {
         //     tasksObj = loadTasks;
 
-        //     $.each(tasksObj, function (hour, task) {
-        //         var hourDiv = $("#" + hour);
-                
+        //     $.each(tasksObj, function(){
+
         //     });
-        
-        };
+        // };
 
-    // });
+    };
 
-    
-
-    
-
+  
     function styleTasks() {
 
 
         $(".row-info").each(function () {
             var elementHour = parseInt(($(this).attr("id")));
-            console.log("element hour",elementHour);
-            console.log("current hour",currentHour);
+            console.log("element hour", elementHour);
+            console.log("current hour", currentHour);
             if (elementHour < currentHour) {
                 // $(this).removeClass(["present", "future"]).addClass("past");
                 $(this).addClass("past");
@@ -69,98 +69,33 @@ $(document).ready(function () {
 
             };
         });
+        retriveTasks();
     };
 
-    // $(".task").on("click", function() {
-    //     var taskInfo = $(".task");
 
-    //     var inputField = $("<input>");
-
-    //     inputField.addClass("description");
-
-    //     taskInfo.append(inputField);
-
-    // });
-
-    // 
-
-    $("button").on("click", function() {
+    $("button").on("click", function () {
+        // get id
         console.log($(this).parent().attr("id"));
         var taskId = $(this).parent().attr("id");
-        // get id
+
         // get textarea input
         var textInput = $(this).parent().find("textarea");
         textInput.val();
         console.log(textInput.val());
 
         // populate the obj in the background
-        
+
         tasksObj[taskId] = textInput.val();
 
-
         // trigger a save function 
-    })
-
-    // function addText() {
-    //     var taskInfo = $(".task");
-
-    //     var inputField = $("<input>");
-
-    //     inputField.addClass("description");
-
-    //     taskInfo.append(inputField);
+        storeTasks();
 
 
 
-        
-    // }
-
-    // $(".task").on("click", function inputText(event) {
-    //    $(this).event.target(function() {
-    //        addText($(this));
-    //    });
-    // });
-
+    });
 
     styleTasks();
-    storeTasks();
+
     console.log(tasksObj);
-    // schedCont.empty();
-
-    // for (var hour = 9; hour <= 17; hour++);
-    // var index = hour - 9;
-
-    // var rowDiv = $("<div>");
-    // rowDiv.addClass("row");
-    // rowDiv.addClass("plannerRow");
-    // rowDiv.attr("hour-index", hour);
-
-    // var timeBoxSpan = $("<span>");
-    // timeBoxSpan.attr("class", "timeBox");
-
-
-    // var colTime = $("<div>");
-    // colTime.addClass("col-md-2");
-
-    // var displayHour = 0;
-    // var amPM = "";
-    // if (hour > 12) {
-    //     displayHour = hour - 12;
-    //     amPM = "pm";
-    // } else {
-    //     displayHour = hour;
-    //     amPM = "am"
-    // }
-
-    // timeBoxSpan.text(displayHour, amPM);
-
-    // rowDiv.append(colTime);
-
-    // colTime.text(timeBoxSpan);
-
-
-
-
-
-
+   
 });
